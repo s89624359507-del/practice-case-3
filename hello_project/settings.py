@@ -6,7 +6,8 @@ SECRET_KEY = 'django-insecure-dev-only-key-change-in-production-12345'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost'), '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
