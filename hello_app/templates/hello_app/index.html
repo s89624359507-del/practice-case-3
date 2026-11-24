@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приветствие</title>
+    <link rel="stylesheet" href="{% static 'hello_app/style.css' %}">
+</head>
+<body>
+    <div class="card">
+        <h1>👋 Добро пожаловать!</h1>
+
+        {% if greeting_name %}
+            <div class="greeting">
+                Привет, <strong>{{ greeting_name }}</strong>!
+            </div>
+        {% endif %}
+
+        <form method="post" class="name-form">
+            {% csrf_token %}
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="error">{{ form.name.errors.0 }}</div>
+            {% endif %}
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if recent_names %}
+            <div class="recent">
+                <p>Последние сохранённые имена:</p>
+                <ul>
+                    {% for n in recent_names %}
+                        <li>{{ n.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
